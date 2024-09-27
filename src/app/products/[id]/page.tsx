@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation'; // To get dynamic route params
 import { client } from '@/sanity/lib/client'; // Assuming you have set up your Sanity client
 import imageUrlBuilder from '@sanity/image-url';
 import AddToButton from '@/Components/addtocart';
-
+import Image from 'next/image';
 
 // Helper function to generate image URLs
 const builder = imageUrlBuilder(client);
@@ -52,12 +52,16 @@ export default function ProductDetail() {
     <div className="px-10 py-10 shadow-lg w-[650px] bg-slate-200 border-[2px] border-primaryColor">
       <h1 className="text-4xl font-bold mb-4 bg-primaryColor text-white px-8 py-5 text-center">{product.name}</h1>
       {product.image && (
-        <img
-          src={urlFor(product.image)}
-          alt={product.name}
-          className=" h-[400px] object-cover  rounded-lg mb-6 bg-cover "
-        />
-      )}
+              <div className="flex-shrink-0">
+                <Image
+                  src={urlFor(product.image)} // Use next/image
+                  alt={product.name}
+                  width={500} // Specify width
+                  height={600} // Specify height
+                  className="object-cover rounded-lg "
+                />
+              </div>
+            )}
       <p className="text-lg mb-4 font-bold  bg-primaryColor text-white px-8 py-5 text-center">Description: {product.description}</p>
       <p className=" flex justify-between text-2xl font-bold mb-4 w-[570px]  bg-primaryColor text-white px-8 py-8 text-center ">Price: RS {product.price}       <AddToButton name='Shop Now'/>
       </p>

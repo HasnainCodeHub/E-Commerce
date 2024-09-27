@@ -4,6 +4,7 @@ import { client } from '@/sanity/lib/client';
 import imageUrlBuilder from '@sanity/image-url';
 import AddToCart from '../addtocart';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Helper function to generate image URLs
 const builder = imageUrlBuilder(client);
@@ -72,15 +73,17 @@ export default function Products() {
     key={product._id}
     className="product-item flex flex-col border border-gray-900 py-5 w-[400px] h-[600px] rounded-lg mb-8   "
   ><Link href={`/products/${product._id}`}>
-    {product.image && (
-      <div className="flex-shrink-0">
-        <img
-          src={urlFor(product.image)}
-          alt={product.name}
-          className="w-full h-[300px] object-cover rounded-lg"
-        />
-      </div>
-    )}
+   {product.image && (
+              <div className="flex-shrink-0">
+                <Image
+                  src={urlFor(product.image)} // Use next/image
+                  alt={product.name}
+                  width={500} // Specify width
+                  height={300} // Specify height
+                  className="object-cover rounded-lg h-[300px]"
+                />
+              </div>
+            )}
     </Link>
 
     <div className="flex-1 px-5 py-3">
