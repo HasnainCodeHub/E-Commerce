@@ -61,44 +61,39 @@ export default function Products() {
   }, []);
 
   return (
-    <div className="px-10">
-      <h1 className="font-bold text-6xl mb-8">Products List</h1>
+    <div className="px-4 md:px-10">
+      <h1 className="font-bold text-4xl md:text-6xl mb-8">Products List</h1>
       <div className="flex flex-wrap justify-start gap-10"> 
         {products.map((product) => (
-          
+          <div
+            key={product._id}
+            className="product-item flex flex-col border border-gray-900 py-5 w-full md:w-[400px] h-[600px] rounded-lg mb-8"
+          >
+            <Link href={`/products/${product._id}`}>
+              {product.image && (
+                <div className="flex-shrink-0">
+                  <Image
+                    src={urlFor(product.image)} // Use next/image
+                    alt={product.name}
+                    width={500} // Specify width
+                    height={300} // Specify height
+                    className="object-cover rounded-lg h-[300px]"
+                  />
+                </div>
+              )}
+            </Link>
 
-// Inside the return block for each product item
-
-  <div
-    key={product._id}
-    className="product-item flex flex-col border border-gray-900 py-5 w-[400px] h-[600px] rounded-lg mb-8   "
-  ><Link href={`/products/${product._id}`}>
-   {product.image && (
-              <div className="flex-shrink-0">
-                <Image
-                  src={urlFor(product.image)} // Use next/image
-                  alt={product.name}
-                  width={500} // Specify width
-                  height={300} // Specify height
-                  className="object-cover rounded-lg h-[300px]"
-                />
-              </div>
-            )}
-    </Link>
-
-    <div className="flex-1 px-5 py-3">
-      <h2 className="text-2xl font-semibold">{product.name}</h2>
-      <p className="text-gray-700">{product.description}</p>
-      <p className="text-lg font-bold mt-2">Price: RS {product.price}</p>
-    </div>
-    <div className="px-5 mt-4">
-      <AddToCart name='Add To Cart' />
-    </div>
-  </div>
-
+            <div className="flex-1 px-5 py-3">
+              <h2 className="text-xl md:text-2xl font-semibold">{product.name}</h2>
+              <p className="text-gray-700 text-base md:text-lg">{product.description}</p>
+              <p className="text-lg font-bold mt-2">Price: RS {product.price}</p>
+            </div>
+            <div className="px-5 mt-4">
+              <AddToCart name='Add To Cart' />
+            </div>
+          </div>
         ))}
       </div>
     </div>
   );
 }
-
