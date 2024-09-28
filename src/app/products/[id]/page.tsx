@@ -11,7 +11,6 @@ const builder = imageUrlBuilder(client);
 function urlFor(source: any) {
   return builder.image(source).url();
 }
-
 interface ImageAsset {
   _type: string;
   asset: {
@@ -19,7 +18,6 @@ interface ImageAsset {
     _type: string;
   };
 }
-
 interface Product {
   _id: string;
   name: string;
@@ -27,7 +25,6 @@ interface Product {
   price: number;
   image: ImageAsset;
 }
-
 export default function ProductDetail() {
   const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState<Product | null>(null);
@@ -48,25 +45,32 @@ export default function ProductDetail() {
   }
 
   return (
-    <div className='flex justify-center h-screen items-center w-full'>
-    <div className="px-10 py-10 shadow-lg w-[650px] bg-slate-200 border-[2px] border-primaryColor">
-      <h1 className="text-4xl font-bold mb-4 bg-primaryColor text-white px-8 py-5 text-center">{product.name}</h1>
-      {product.image && (
-              <div className="flex-shrink-0">
-                <Image
-                  src={urlFor(product.image)} // Use next/image
-                  alt={product.name}
-                  width={500} // Specify width
-                  height={600} // Specify height
-                  className="object-cover rounded-lg "
-                />
-              </div>
-            )}
-      <p className="text-lg mb-4 font-bold  bg-primaryColor text-white px-8 py-5 text-center">Description: {product.description}</p>
-      <p className=" flex justify-between text-2xl font-bold mb-4 w-[570px]  bg-primaryColor text-white px-8 py-8 text-center ">Price: RS {product.price}       <AddToButton name='Shop Now'/>
-      </p>
-
-    </div>
+    <div className='bg-gradient-to-t bg-orange-300 h-screen'>
+      <div className='text-center'>
+        <h1 className='font-bold text-6xl '>Product Detailes</h1>
+      </div>
+      <div className='flex justify-center h-auto mt-8  items-center w-full'>
+        <div className="px-10 py-10 shadow-lg w-[650px] bg-slate-200 border-[2px] border-primaryColor mb-8">
+          <h1 className="text-4xl font-bold mb-4 bg-primaryColor text-white px-8 py-5 text-center">{product.name}</h1>
+          {product.image && (
+            <div className="flex-shrink-0">
+              <Image
+                src={urlFor(product.image)} // Use next/image
+                alt={product.name}
+                width={500} // Specify width
+                height={600} // Specify height
+                className="object-cover rounded-lg "
+              />
+            </div>
+          )}
+          <p className="text-lg mb-4 font-bold  bg-primaryColor text-white px-8 py-5 text-center">Description: {product.description}</p>
+          <p className=" flex justify-between text-2xl font-bold mb-4 w-[570px]  bg-primaryColor text-white px-8 py-8 text-center ">Price: RS {product.price}
+          </p>
+          <div className='flex justify-end'>
+            <AddToButton name='Shop Now' />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -13,7 +13,7 @@ export default function Heading() {
           <br />
           Stay updated with the latest trends and seasonal favorites as we regularly refresh our inventory. Whether you're shopping for yourself or searching for the perfect gift, our store is dedicated to providing a seamless and enjoyable shopping experience.
         </p>
-        <Link href="/Productsmain">
+        <Link href="/" passHref>
           <Button name="Shop Now" />
         </Link>
       </div>
