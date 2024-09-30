@@ -43,11 +43,11 @@ export default function Navbar() {
         {/* Placeholder */}
           
         <div className="flex items-center mt-2 w-full md:w-auto">
-          <IoMdSearch size={40} className="mr-2" />
+          <IoMdSearch size={40} className="mr-2 cursor-pointer hover:text-cyan-600" />
           <input
             type="text"
             placeholder="Search Products"
-            className="h-[60px] w-[600px] px-4 py-1 border-[2px] text-black border-secondaryColor"
+            className="h-[60px] w-[600px] px-4 py-1 border-[2px] text-black border-cyan-600"
           />
         </div>
 

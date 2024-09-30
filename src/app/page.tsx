@@ -1,9 +1,10 @@
 import Heading from "@/Components/heading";
 import Navbar from "@/Components/navbar";
-import Products from "@/Components/ProductsMain/products";
+import Products from "@/Components/products";
 import { Suspense } from "react";
 import About from "./About/page";
 import  Contact  from "./Contact/page";
+import Footer from "@/Components/Footer";
 
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       </Suspense>
       <About/>
       <Contact/>
+      <Footer/>
     </main>
   );
 }

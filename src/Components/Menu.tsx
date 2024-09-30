@@ -21,9 +21,9 @@ return(
 <NavigationMenuItem>
 <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
 <NavigationMenuContent>
-<NavigationMenuLink> <Link href="/About"  className="text-primaryColor font-bold hover:text-orange-300 " >About</Link>
+<NavigationMenuLink> <Link href="/About"  className="text-cyan-600 font-bold hover:text-orange-300 " >About</Link>
 </NavigationMenuLink>
-<NavigationMenuLink> <Link href="/Contact" className="text-primaryColor font-bold hover:text-orange-300 ">Contact</Link>
+<NavigationMenuLink> <Link href="/Contact" className="text-cyan-600 font-bold hover:text-orange-300 ">Contact</Link>
 </NavigationMenuLink>
 </NavigationMenuContent>
 </NavigationMenuItem>

@@ -5,7 +5,7 @@ import imageUrlBuilder from '@sanity/image-url';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import AddToCart from '../addtocart';
+import AddToCart from './addtocart';
 
 // Helper function to generate image URLs
 const builder = imageUrlBuilder(client);
