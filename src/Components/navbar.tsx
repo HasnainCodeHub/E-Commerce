@@ -47,7 +47,7 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Search Products"
-            className="h-[60px] w-[600px] px-4 py-1 border-[2px] text-black border-cyan-600"
+            className="h-[60px] w-[600px] px-4 py-1 border-[2px] text-black border-cyan-600 rounded-3xl"
           />
         </div>
 

@@ -2,12 +2,10 @@ import Link from "next/link"
 import {
     NavigationMenu,
     NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    NavigationMenuViewport,
   } from "@/Components/ui/navigation-menu"
 // import { Link } from "lucide-react"
   

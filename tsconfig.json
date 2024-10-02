@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,                    // Allow JavaScript files
     "skipLibCheck": true,               // Skip type checking of declaration files
@@ -28,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/products/[product]/[_id.tsx]",
-    "src/server/**/*.ts"                // Include your server-related TypeScript files
+    "src/server/**/*.ts",                // Include your server-related TypeScript files
+    "src/app/Components"
   ],
   "exclude": ["node_modules"]           // Exclude node_modules from compilation
 }

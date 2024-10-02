@@ -33,7 +33,7 @@ export default function Contact() {
     if (response.ok) {
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setSubmitted(false), 10000); // Hide thank-you message after 3 seconds
+      setTimeout(() => setSubmitted(false), 5000); // Hide thank-you message after 3 seconds
     } else {
       console.error("Error sending message");
     }
