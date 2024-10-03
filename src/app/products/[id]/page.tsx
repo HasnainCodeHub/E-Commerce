@@ -1,10 +1,13 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation'; // For dynamic route params
 import { client } from '@/sanity/lib/client'; // Assuming you have set up your Sanity client
 import imageUrlBuilder from '@sanity/image-url';
-import AddToButton from '@/Components/addtocart';
 import Image from 'next/image';
+import AddToCart from '@/Components/addtocart';
+import Link from 'next/link'; // Import Link for navigation
+import Button from '@/Components/Button';
+
 
 // Helper function to generate image URLs
 const builder = imageUrlBuilder(client);
@@ -28,18 +31,30 @@ interface Product {
   image: ImageAsset;
 }
 
+interface CartItem extends Product {
+  quantity: number; // Add quantity to cart items
+}
+
 export default function ProductDetail() {
-  const params = useParams(); // First, fetch params
-  const id = params?.id as string | undefined; // Now, safely assign and type `id`
+  const params = useParams(); // Fetch params
+  const id = params?.id as string | undefined; // Safely assign and type `id`
 
   const [product, setProduct] = useState<Product | null>(null);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    // Load cart from localStorage if available
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  const [message, setMessage] = useState<string | null>(null); // For success message
+  const [showViewCartLink, setShowViewCartLink] = useState<boolean>(false); // For showing View Cart link
 
   useEffect(() => {
     if (id) {
       // Fetch the product data by ID
       async function fetchProduct() {
         try {
-          const result = await client.fetch(`*[_type == "products" && _id == $id][0]`, { id });
+          const result = await client.fetch<Product>(`*[_type == "products" && _id == $id][0]`, { id });
           setProduct(result);
         } catch (error) {
           console.error("Error fetching product:", error);
@@ -48,6 +63,30 @@ export default function ProductDetail() {
       fetchProduct();
     }
   }, [id]);
+
+  // Function to add item to cart
+  const addToCart = (product: Product) => {
+    setCart((prevCart) => {
+      const productExists = prevCart.find((item) => item._id === product._id);
+      if (productExists) {
+        // If the product already exists in the cart, increase the quantity
+        return prevCart.map((item) =>
+          item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        // If it doesn't exist, add it with a quantity of 1
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
+
+    // Show success message and the "View Cart" link
+    setMessage(`${product.name} has been added to your cart!`);
+    setShowViewCartLink(true); // Show the "View Cart" link
+    setTimeout(() => setMessage(null), 9000); // Hide message after 9 seconds
+
+    // Persist the cart to localStorage
+    localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: 1 }])); // Update localStorage
+  };
 
   if (!product) {
     return <div>Loading...</div>;
@@ -84,8 +123,20 @@ export default function ProductDetail() {
           </p>
 
           <div className='flex justify-end'>
-            <AddToButton name='Shop Now' />
+            <AddToCart name='Add To Cart' onAdd={() => addToCart(product)} /> {/* Pass the addToCart function */}
           </div>
+
+          {/* Display message if product added to cart */}
+          {message && (
+            <div className="mt-4 text-green-500 text-lg text-center">{message}</div>
+          )}
+
+          {/* Show Link to view cart only if product is added */}
+          {showViewCartLink && (
+            <div className='mt-4 text-center'>
+              <Link href="/Cart" className="text-blue-500 underline"><Button name="View Cart" /></Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

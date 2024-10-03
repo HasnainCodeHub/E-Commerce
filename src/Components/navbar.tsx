@@ -4,6 +4,8 @@ import Image from "next/image";
 import LogoImage from "./Logo.png";
 import { IoMdSearch } from "react-icons/io";
 import Navigation from "./Menu";
+import { FaShoppingCart } from "react-icons/fa";
+
 
 
 export default function Navbar() {
@@ -38,17 +40,21 @@ export default function Navbar() {
           <li>
             <Link href="/Contact" className="hover:text-cyan-500">Contact</Link>
           </li>
+
+
         </ul>
         </div>
         {/* Placeholder */}
           
-        <div className="flex items-center mt-2 w-full md:w-auto">
+        <div className="flex items-center mt-2 w-full md:w-auto ga-">
           <IoMdSearch size={40} className="mr-2 cursor-pointer hover:text-cyan-600" />
           <input
             type="text"
             placeholder="Search Products"
             className="h-[60px] w-[600px] px-4 py-1 border-[2px] text-black border-cyan-600 rounded-3xl"
           />
+          <Link href="/Cart" className="text-xl"><FaShoppingCart size={50} />
+          </Link> 
         </div>
 
 

@@ -1,5 +1,6 @@
+import Button from '@/Components/Button';
 import BackgroundImage from '../Images/aboutback.jpg'; // Ensure the path is correct
-import AddToButton from "@/Components/addtocart";
+
 import Link from "next/link";
 
 export default function About() {
@@ -45,7 +46,7 @@ export default function About() {
           </div>
           <div className="mt-8 w-[160px] md:w-[180px]">
             <Link href="/">
-              <AddToButton name="Start Shopping" />
+              <Button name="Start Shopping" />
             </Link>
           </div>
         </div>

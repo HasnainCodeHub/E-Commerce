@@ -1,13 +1,18 @@
-function AddToButton({name}:{name:string}) {
-  return(
-      <main>
-          <div>
-              <button className="bg-primaryColor hover:bg-orange-400 text-white font-bold py-4 px-6 rounded">
-                 {name}
-              </button>
-          </div>
-      </main>
-  )
-}
-
-export default AddToButton;
+interface AddToCartProps {
+    name: string;
+    onAdd: () => void; // Function to call when adding to cart
+  }
+  
+  const AddToCart: React.FC<AddToCartProps> = ({ name, onAdd }) => {
+    return (
+      <button
+        className="bg-primaryColor text-white px-4 py-2 rounded"
+        onClick={onAdd} // Call the onAdd function when clicked
+      >
+        {name}
+      </button>
+    );
+  };
+  
+  export default AddToCart;
+  
