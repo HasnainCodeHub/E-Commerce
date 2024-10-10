@@ -4,10 +4,9 @@ import { useParams } from 'next/navigation'; // For dynamic route params
 import { client } from '@/sanity/lib/client'; // Assuming you have set up your Sanity client
 import imageUrlBuilder from '@sanity/image-url';
 import Image from 'next/image';
-import AddToCart from '@/Components/addtocart';
+import AddToCart from '../../../Components/addtocart';
 import Link from 'next/link'; // Import Link for navigation
 import Button from '@/Components/Button';
-
 
 // Helper function to generate image URLs
 const builder = imageUrlBuilder(client);
@@ -95,11 +94,11 @@ export default function ProductDetail() {
   return (
     <div className='bg-gradient-to-t bg-orange-300 h-auto'>
       <div className='text-center'>
-        <h1 className='font-bold text-6xl '>Product Details</h1>
+        <h1 className='font-bold text-4xl sm:text-5xl md:text-6xl'>Product Details</h1>
       </div>
-      <div className='flex justify-center h-auto mt-8 items-center w-full'>
-        <div className="px-10 py-10 shadow-lg w-[650px] bg-slate-200 border-[2px] border-primaryColor mb-8">
-          <h1 className="text-4xl font-bold mb-4 bg-primaryColor text-white px-8 py-5 text-center">{product.name}</h1>
+      <div className='flex flex-col md:flex-row justify-center items-center w-full p-4'>
+        <div className="px-6 py-8 md:w-[650px] shadow-lg bg-slate-200 border-2 border-primaryColor mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-primaryColor text-white px-4 py-2 text-center">{product.name}</h1>
 
           {product.image && (
             <div className="flex-shrink-0">
@@ -114,11 +113,11 @@ export default function ProductDetail() {
             </div>
           )}
 
-          <p className="text-lg mb-4 font-bold bg-primaryColor text-white px-8 py-5 text-center">
+          <p className="text-lg mb-4 font-bold bg-primaryColor text-white px-4 py-3 text-center">
             Description: {product.description}
           </p>
 
-          <p className="flex justify-between text-2xl font-bold mb-4 w-[570px] bg-primaryColor text-white px-8 py-8 text-center">
+          <p className="flex justify-between text-lg md:text-2xl font-bold mb-4 w-full bg-primaryColor text-white px-4 py-4 text-center">
             Price: RS {product.price}
           </p>
 
@@ -128,7 +127,7 @@ export default function ProductDetail() {
 
           {/* Display message if product added to cart */}
           {message && (
-            <div className="mt-4 text-cyan-600 font-bold  text-4xl text-center">{message}</div>
+            <div className="mt-4 text-cyan-600 font-bold text-2xl text-center">{message}</div>
           )}
 
           {/* Show Link to view cart only if product is added */}
