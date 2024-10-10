@@ -14,11 +14,7 @@ interface UserDetails {
 }
 
 const Cart: React.FC = () => {
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [paymentMethod, setPaymentMethod] = useState<string>(''); // State for selected payment method
   const [userDetails, setUserDetails] = useState<UserDetails>({
     name: '',
@@ -30,6 +26,14 @@ const Cart: React.FC = () => {
   });
 
   const [thankYouMessage, setThankYouMessage] = useState<string>(''); // State for thank-you message
+
+  useEffect(() => {
+    // Fetch cart from localStorage when component mounts
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
 
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0); // Calculate total price
 
@@ -50,7 +54,7 @@ const Cart: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setUserDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+    setUserDetails(prevDetails => ({ ...prevDetails, [name]: value }));
   };
 
   return (
@@ -182,7 +186,10 @@ const Cart: React.FC = () => {
               <button
                 className="bg-primaryColor text-white rounded-md px-4 py-2 mt-4 w-full hover:bg-cyan-700 cursor-pointer" // Full width button
                 onClick={handlePayment}
-                disabled={!paymentMethod || !userDetails.name || !userDetails.email || (paymentMethod === 'credit-card' && (!userDetails.cardNumber || !userDetails.expiryDate || !userDetails.cvv)) || (paymentMethod === 'bank-transfer' && !userDetails.bankAccount)} // Disable button if required fields are not filled
+                disabled={!paymentMethod || !userDetails.name || !userDetails.email || 
+                  (paymentMethod === 'credit-card' && 
+                    (!userDetails.cardNumber || !userDetails.expiryDate || !userDetails.cvv)) || 
+                  (paymentMethod === 'bank-transfer' && !userDetails.bankAccount)} // Disable button if required fields are not filled
               >
                 Proceed to Payment
               </button>
