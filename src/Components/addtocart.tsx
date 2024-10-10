@@ -1,18 +1,13 @@
+// AddToCart.tsx
 interface AddToCartProps {
-    name: string;
-    onAdd: () => void; // Function to call when adding to cart
-  }
-  
-  const AddToCart: React.FC<AddToCartProps> = ({ name, onAdd }) => {
-    return (
-      <button
-        className="bg-primaryColor text-white px-4 py-2 rounded"
-        onClick={onAdd} // Call the onAdd function when clicked
-      >
-        {name}
-      </button>
-    );
-  };
-  
-  export default AddToCart;
-  
+  onAdd: () => void;
+  name: string;
+}
+
+export default function AddToCart({ onAdd, name }: AddToCartProps) {
+  return (
+    <button onClick={onAdd} className="bg-primaryColor text-white p-2 rounded hover:bg-cyan-600">
+      {name}
+    </button>
+  );
+}

@@ -2,10 +2,10 @@
 import { useState, useEffect } from 'react';
 import { client } from '@/sanity/lib/client';
 import imageUrlBuilder from '@sanity/image-url';
-
 import Link from 'next/link';
 import Image from 'next/image';
-import AddToCart from './addtocart'; // Ensure this component accepts props for handling cart
+import AddToCart from './addtocart';
+import Button from './Button';
 
 // Helper function to generate image URLs
 const builder = imageUrlBuilder(client);
@@ -38,7 +38,19 @@ export interface CartItem extends IProp {
 
 export default function Products() {
   const [products, setProducts] = useState<IProp[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]); // Initialize cart state
+  const [cart, setCart] = useState<CartItem[]>([]);
+  
+  // State for the last added product and visibility of the View Cart link
+  const [lastAddedProductId, setLastAddedProductId] = useState<string | null>(null);
+  const [showViewCartLink, setShowViewCartLink] = useState(false); // New state for View Cart link
+
+  useEffect(() => {
+    // Fetch the cart from localStorage when the component mounts
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
 
   useEffect(() => {
     // Function to fetch products
@@ -82,7 +94,22 @@ export default function Products() {
         return [...prevCart, { ...product, quantity: 1 }];
       }
     });
+
+    // Set last added product ID
+    setLastAddedProductId(product._id);
+    setShowViewCartLink(true); // Show the View Cart link
+
+    // Clear the last added product ID and View Cart link after 3 seconds
+    setTimeout(() => {
+      setLastAddedProductId(null);
+      setShowViewCartLink(false);
+    }, 9000);
   };
+
+  // Persist the cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <div className="px-4 md:px-10">
@@ -91,7 +118,7 @@ export default function Products() {
         {products.map((product) => (
           <div
             key={product._id}
-            className="product-item flex flex-col border border-gray-900 py-5 w-full md:w-[400px] h-[600px] rounded-lg mb-8"
+            className="product-item flex flex-col border border-gray-900 py-5 w-full md:w-[400px] h-auto rounded-lg mb-8"
           >
             <Link href={`/products/${product._id}`}>
               {product.image && (
@@ -111,12 +138,22 @@ export default function Products() {
               <h2 className="text-xl md:text-2xl font-semibold">{product.name}</h2>
               <p className="text-gray-700 text-base md:text-lg">{product.description}</p>
               <p className="text-lg font-bold mt-2">Price: RS {product.price}</p>
+              {lastAddedProductId === product._id && ( // Show message if this product was just added
+                <div className="mt-2">
+                  <p className="text-green-500">Added to Cart!</p>
+                  {showViewCartLink && ( // Conditionally show View Cart link
+                    <Link href="/Cart" className="text-blue-500 hover:underline">
+                      <Button name="View Cart" /> 
+                    </Link>
+                  )}
+                </div>
+              )}
             </div>
             <div className="px-5 mt-4">
               <AddToCart name='Add To Cart' onAdd={() => addToCart(product)} /> {/* Pass the addToCart function */}
             </div>
           </div>
-        ))}
+        ))} 
       </div>
     </div>
   );

@@ -93,7 +93,7 @@ export default function ProductDetail() {
   }
 
   return (
-    <div className='bg-gradient-to-t bg-orange-300 h-screen'>
+    <div className='bg-gradient-to-t bg-orange-300 h-auto'>
       <div className='text-center'>
         <h1 className='font-bold text-6xl '>Product Details</h1>
       </div>
@@ -128,7 +128,7 @@ export default function ProductDetail() {
 
           {/* Display message if product added to cart */}
           {message && (
-            <div className="mt-4 text-green-500 text-lg text-center">{message}</div>
+            <div className="mt-4 text-cyan-600 font-bold  text-4xl text-center">{message}</div>
           )}
 
           {/* Show Link to view cart only if product is added */}
