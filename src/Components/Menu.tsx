@@ -12,6 +12,7 @@ import {
   
 
 export default function Navigation() {
+  
 return(
 <div className="text-center w-[100px] bg-yellow-300">
 <NavigationMenu>

@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation'; // Import useRouter from Next.js
 import { CartItem } from '../../Components/products';
 import BackgroundImage from '../Images/aboutback.jpg';
 
@@ -26,6 +27,9 @@ const Cart: React.FC = () => {
   });
 
   const [thankYouMessage, setThankYouMessage] = useState<string>(''); // State for thank-you message
+  const [showContinueButton, setShowContinueButton] = useState<boolean>(false); // New state for the continue shopping button
+
+  const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
     // Fetch cart from localStorage when component mounts
@@ -44,9 +48,10 @@ const Cart: React.FC = () => {
   };
 
   const handlePayment = () => {
-    // Show the thank-you message
+    // Show the thank-you message and set the button visibility
     setThankYouMessage(`Thank you, ${userDetails.name}! Your payment of RS ${totalPrice} has been processed successfully.`);
-    
+    setShowContinueButton(true); // Show the continue shopping button
+
     // Optionally, reset the cart
     setCart([]);
     localStorage.setItem('cart', JSON.stringify([])); // Clear the local storage
@@ -114,6 +119,7 @@ const Cart: React.FC = () => {
                   setPaymentMethod(e.target.value);
                   setUserDetails({ name: '', email: '', cardNumber: '', expiryDate: '', cvv: '', bankAccount: '' }); // Reset user details when changing method
                   setThankYouMessage(''); // Clear thank you message on changing payment method
+                  setShowContinueButton(false); // Hide continue button when changing payment method
                 }}
               >
                 <option value="">Select Payment Method</option>
@@ -195,6 +201,18 @@ const Cart: React.FC = () => {
               </button>
             </div>
           </>
+        )}
+
+        {/* Show Continue Shopping button after payment is processed */}
+        {showContinueButton && (
+          <div className="text-center mt-6">
+            <button
+              className="bg-orange-600 text-white rounded-md px-4 py-2 hover:bg-cyan-700 cursor-pointer"
+              onClick={() => router.push('/')} // Navigate to home page
+            >
+              Continue Shopping
+            </button>
+          </div>
         )}
       </div>
     </div>

@@ -36,7 +36,7 @@ export default function Navbar() {
               <Link href="/Contact" className="hover:text-cyan-500">Contact</Link>
             </li>
             <li>
-              <Link href="Login" className="hover:text-cyan-500">Login</Link> 
+              <Link href="/Login" className="hover:text-cyan-500">Login</Link> 
             </li>
             <li>
               <Link href="/Signup" className="hover:text-cyan-500">Signup</Link> 
@@ -50,7 +50,7 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Search Products"
-            className="h-[60px] w-[600px] px-4 py-1 border-[2px] text-black border-cyan-600 rounded-3xl"
+            className="h-[60px] flex-grow px-4 py-1 border-[2px] text-black border-cyan-600 rounded-3xl focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
           />
           <Link href="/Cart" className="text-xl">
             <FaShoppingCart size={50} />
